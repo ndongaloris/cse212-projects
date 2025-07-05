@@ -12,8 +12,19 @@ public static class Arrays
         // Remember: Using comments in your program, write down your process for solving this problem
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
+        double startingNumber = number;
+        int numberOfMultiple = length;
+        var arraysMultiples = new double [5];
 
-        return []; // replace this return statement with your own
+        arraysMultiples[0]= startingNumber;
+
+        for (int i = 2; i < numberOfMultiple + 1; i++)
+        {
+            arraysMultiples[i-1] = startingNumber * i;
+        }
+
+        return arraysMultiples; // replace this return statement with your own
+
     }
 
     /// <summary>
@@ -23,11 +34,23 @@ public static class Arrays
     ///
     /// Because a list is dynamic, this function will modify the existing data list rather than returning a new list.
     /// </summary>
-    public static void RotateListRight(List<int> data, int amount)
+    public static List<int> RotateListRight(List<int> data, int amount)
     {
         // TODO Problem 2 Start
         // Remember: Using comments in your program, write down your process for solving this problem
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
+        // List<int> oldList = data;
+        
+        var part = data.GetRange(data.Count() - amount, amount);
+
+        for (int j = 0; j < part.Count(); j++)
+        {
+            data.Insert(j, part[j]);
+        }
+        int dataCount = data.Count();
+        data.RemoveRange(dataCount - amount, amount);
+        
+        return data;
     }
 }

@@ -1,3 +1,4 @@
+using System.Runtime.Intrinsics.X86;
 public static class Divisors {
     /// <summary>
     /// Entry point for the Divisors class
@@ -19,6 +20,11 @@ public static class Divisors {
     private static List<int> FindDivisors(int number) {
         List<int> results = new();
         // TODO problem 1
+        for(int n = 1; n < number; n++){
+            if(number % n == 0){
+                results.Add(n);
+            }
+        }
         return results;
     }
 }
