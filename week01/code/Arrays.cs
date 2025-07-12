@@ -14,7 +14,7 @@ public static class Arrays
         // be implemented by another person.
 
         // Creating an array where I will storing my new data
-        var arraysMultiples = new double [5];
+        double arraysMultiples = new[] {1,2};
         // storing the source number first before adding the extras
         arraysMultiples[0]= number;
         // looping  to be able to add the extra number into the array
