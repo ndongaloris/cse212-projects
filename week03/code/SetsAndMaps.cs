@@ -22,7 +22,46 @@ public static class SetsAndMaps
     public static string[] FindPairs(string[] words)
     {
         // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+        // Creating a set to get all the pairs
+        var pairs = new string [] {};
+        var usedWord = new HashSet<string>();
+
+        var firstWord = "";
+        var pairedWord = "";
+        char firstLetter = 'f';
+        char secondLetter = 's';
+
+        // Lopping through the array and picking one word
+        foreach (string word in words)
+        {
+            firstWord = word;
+            // finding his pair
+            if (!usedWord.Contains(word))
+            {
+                usedWord.Add(firstWord);
+                firstLetter = firstWord[0];
+                secondLetter = firstWord[1];
+
+                if (firstLetter != secondLetter)
+                    pairedWord = $"{secondLetter + firstLetter}";
+                else
+                    throw new ApplicationException("a special case, the letters are the same");
+                if (words.Contains(pairedWord))
+                {
+                    usedWord.Add(pairedWord);
+                    pairs.Append($"{firstWord}+ {pairedWord}");
+                }
+            }
+            
+
+        }
+        // checking if the word is inside the set if not
+        // adding both word as pair inside the set
+
+        
+
+
+        return pairs;
     }
 
     /// <summary>
