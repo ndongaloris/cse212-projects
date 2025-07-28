@@ -1,3 +1,4 @@
+using System.Xml.Serialization;
 using System.Reflection.Metadata;
 using System.Runtime.Intrinsics.X86;
 using System.Collections;
@@ -23,7 +24,7 @@ public static class Recursion
         {
             return 0;
         }
-        
+
         // Recursive step:
         // Adds the square of the current number 'n' to the sum of squares from 1 to (n - 1)
         return (int)(Math.Pow(n, 2) + SumSquaresRecursive(n - 1));
@@ -132,9 +133,23 @@ public static class Recursion
             return 4;
 
         // TODO Start Problem 3
+        // Initialize memoization dictionary if it's not already passed in
+        if (remember == null)
+            remember = new Dictionary<int, decimal>();
+
+        // Check if solution for s has already been computed
+        if (remember.ContainsKey(s))
+            return remember[s];// Use stored result to skip redundant work
 
         // Solve using recursion
-        decimal ways = CountWaysToClimb(s - 1) + CountWaysToClimb(s - 2) + CountWaysToClimb(s - 3);
+        // Recursive case: explore all paths to reach step 's'
+        // Try 1-step, 2-step, and 3-step moves from current position
+        decimal ways = CountWaysToClimb(s - 1, remember) + CountWaysToClimb(s - 2, remember) + CountWaysToClimb(s - 3, remember);
+
+        // Store the computed result for future reuse
+        remember[s] = ways;
+
+        // Return the total number of ways to reach step 's'
         return ways;
     }
 
