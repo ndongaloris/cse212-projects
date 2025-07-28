@@ -1,3 +1,5 @@
+using System.Reflection.Metadata;
+using System.Runtime.Intrinsics.X86;
 using System.Collections;
 
 public static class Recursion
@@ -15,7 +17,16 @@ public static class Recursion
     public static int SumSquaresRecursive(int n)
     {
         // TODO Start Problem 1
-        return 0;
+        // Base case: stop recursion when n reaches zero or negative.
+        // Returning 0 here means we've summed all squares from 1 up to original n.
+        if (n <= 0)
+        {
+            return 0;
+        }
+        
+        // Recursive step:
+        // Adds the square of the current number 'n' to the sum of squares from 1 to (n - 1)
+        return (int)(Math.Pow(n, 2) + SumSquaresRecursive(n - 1));
     }
 
     /// <summary>
@@ -40,6 +51,30 @@ public static class Recursion
     public static void PermutationsChoose(List<string> results, string letters, int size, string word = "")
     {
         // TODO Start Problem 2
+        // Base case: if the current word has reached the target length, store it.
+        // This is the termination condition that stops further recursion.
+        if (word.Length == size)
+        {
+            results.Add(word);  // Add the complete permutation to results
+            return; // Exit the current recursive call to avoid unnecessary processing.
+        }
+        else
+        {
+            // Loop through each letter in the input string.
+            // At each iteration, we pick one letter to append to the current word
+            // and recursively generate permutations from the remaining letters.
+            for (int i = 0; i < letters.Length; i++)
+            {
+                // Remove the selected letter at index i.
+                // This avoids reusing the same character in this particular permutation.
+                var lettersLeft = letters.Remove(i, 1);
+
+                // Append the selected letter to the word-in-progress,
+                // then recursively explore further options with updated letters.
+                PermutationsChoose(results, lettersLeft, size, word + letters[i]);
+            }
+        }
+        
     }
 
     /// <summary>
