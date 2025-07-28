@@ -169,6 +169,37 @@ public static class Recursion
     public static void WildcardBinary(string pattern, List<string> results)
     {
         // TODO Start Problem 4
+        // if the pattern is empty,
+        // return of an array with an empty string.
+        if (pattern.Length == 0)
+        {
+            results.Add("");
+            return;
+        }
+        // Base case: if there are no '*' characters left in the pattern,
+        // it means the string is complete. Add it to the results list.
+        if (!pattern.Contains("*")) {
+            results.Add(pattern);
+            return;
+        }
+        if (pattern.Contains("*"))
+        {
+            // Recursive case: locate the first '*' character in the string
+            int i = pattern.IndexOf("*");
+
+            // Build a new pattern by replacing the '*' at index i with '0'
+            String zeroPattern = pattern[..i] + '0' + pattern[(i+1)..];
+
+            // Build another new pattern by replacing the '*' with '1'
+            String onePattern = pattern[..i] + '1' + pattern[(i+1)..];
+
+            // Recursively process both branches:
+            // Each call replaces one wildcard and continues until pattern is complete
+            WildcardBinary(zeroPattern, results);
+            WildcardBinary(onePattern, results);
+        }      
+        
+
     }
 
     /// <summary>
