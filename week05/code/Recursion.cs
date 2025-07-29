@@ -210,15 +210,46 @@ public static class Recursion
     {
         // If this is the first time running the function, then we need
         // to initialize the currPath list.
-        if (currPath == null) {
+        if (currPath == null)
+        {
             currPath = new List<ValueTuple<int, int>>();
         }
-        
+
         // currPath.Add((1,2)); // Use this syntax to add to the current path
 
         // TODO Start Problem 5
         // ADD CODE HERE
 
-        // results.Add(currPath.AsString()); // Use this to add your path to the results array keeping track of complete maze solutions when you find the solution.
+        if (maze.IsValidMove(currPath, x, y))
+        {
+
+            // Clone path to avoid cross-contamination between recursive branches
+            var newPath = new List<(int, int)>(currPath);
+            newPath.Add((x, y));//  Add current cell to the newly cloned path
+
+            // Check if current cell is the goal (end of the maze)
+            if (maze.IsEnd(x, y))
+            {
+                results.Add(newPath.AsString()); // Use this to add your path to the results array keeping track of complete maze solutions when you find the solution.
+                return; //Found a solution—no need to continue further from here
+            }
+
+            // Explore all four directions from the current cell
+            // Move Right (increase x)
+            SolveMaze(results, maze, x + 1, y, newPath);
+
+            // Move Left (decrease x)
+            SolveMaze(results, maze, x - 1, y, newPath);
+
+            // Move Right (increase y)
+            SolveMaze(results, maze, x, y + 1, newPath);
+
+            // Move Left (decrease y)
+            SolveMaze(results, maze, x, y - 1, newPath);
+        }
+
+        // No need to add to results here — path is only valid if goal is reached
+        return;
+
     }
 }
