@@ -83,9 +83,9 @@ public class BinarySearchTree : IEnumerable<int>
         // TODO Problem 3
         if (node is not null)
         {
-            TraverseBackward(node.Right, values);
-            values.Add(node.Data);
-            TraverseBackward(node.Left, values);
+            TraverseBackward(node.Right, values); // Step 1: Traverse the right subtree first (larger values)
+            values.Add(node.Data);                // Step 2: Visit the current node and add its value
+            TraverseBackward(node.Left, values);  // Step 3: Traverse the left subtree next (smaller values)
         }
     }
 
