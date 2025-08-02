@@ -1,3 +1,5 @@
+using System.Security.AccessControl;
+using System.Data.Common;
 public class Node
 {
     public int Data { get; set; }
@@ -19,7 +21,10 @@ public class Node
             if (Left is null)
                 Left = new Node(value);
             else
-                Left.Insert(value);
+            {
+                if(!Left.Contains(value))
+                    Left.Insert(value);
+            }
         }
         else
         {
@@ -27,14 +32,32 @@ public class Node
             if (Right is null)
                 Right = new Node(value);
             else
-                Right.Insert(value);
+            {   
+                if(!Right.Contains(value))
+                    Right.Insert(value);
+            }
         }
     }
 
     public bool Contains(int value)
     {
         // TODO Start Problem 2
-        return false;
+        if (Data == value)
+        {
+            return true;
+        }
+        if (Data > value )
+        {
+            if (Left is null)
+                return false;
+            return Left.Contains(value);
+        }
+        else
+        {
+            if (Right is null)
+                return false;
+            return Right.Contains(value);
+        }
     }
 
     public int GetHeight()
